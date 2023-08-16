@@ -33,6 +33,12 @@ const data: DataType[] = [
     position: "Full-Stack Engineer",
     salary: 120000,
   },
+  {
+    key: "2",
+    company: "Roblox",
+    position: "Frontend Engineer",
+    salary: 130000,
+  },
 ];
 
 const JobTable: React.FC = () => <Table columns={columns} dataSource={data} />;
