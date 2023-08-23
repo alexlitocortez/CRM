@@ -1,21 +1,24 @@
+import React, { useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import type { MenuProps } from "antd";
-import JobTable from "../../components/table/JobTable";
+import { CustomInput } from "../../components/autocomplete/AutoComplete";
 
 const { Header, Content, Sider } = Layout;
-
-// const items1: MenuProps["items"] = [
-//   "Jobs Today",
-//   "Jobs This Week",
-//   "Jobs Last 2 Weeks",
-// ].map((key) => ({
-//   key,
-//   label: `${key}`,
-// }));
 
 export interface IhomeLayoutProps {}
 
 export default function HomeLayout(props: IhomeLayoutProps) {
+  const [inputUsername, setUsername] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
+
+  const handleUsername = (value: string) => {
+    setUsername(value);
+  };
+
+  const handlePassword = (value: string) => {
+    setInputPassword(value);
+  };
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -23,15 +26,7 @@ export default function HomeLayout(props: IhomeLayoutProps) {
   return (
     <div>
       <Layout style={{ width: "100vw", height: "100vh" }}>
-        {/* <Menu
-            // theme="dark"
-            style={{ backgroundColor: "#5A5A5A", color: "white" }}
-            mode="horizontal"
-            defaultSelectedKeys={["2"]}
-            items={items1}
-          /> */}
         <Layout>
-          {/* <Sider width={200} style={{ background: colorBgContainer }}></Sider> */}
           <Layout style={{ padding: "0 24px 24px" }}>
             <Content
               style={{
@@ -39,9 +34,20 @@ export default function HomeLayout(props: IhomeLayoutProps) {
                 margin: 0,
                 minHeight: 280,
                 background: colorBgContainer,
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              <JobTable />
+              <CustomInput
+                value={inputUsername}
+                onChange={handleUsername}
+                placeholder="Enter Username"
+              />
+              <CustomInput
+                value={inputPassword}
+                onChange={handlePassword}
+                placeholder="Enter Password"
+              />
             </Content>
           </Layout>
         </Layout>
