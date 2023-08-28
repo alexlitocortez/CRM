@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import type { MenuProps } from "antd";
-import { CustomInput } from "../../components/autocomplete/AutoComplete";
+import { CustomInput } from "../../components/autocomplete/CustomInput";
+import axios from "axios";
+import NavBar from "../../components/navbar/NavBar";
 
 const { Header, Content, Sider } = Layout;
 
 export interface IhomeLayoutProps {}
 
 export default function HomeLayout(props: IhomeLayoutProps) {
-  const [inputUsername, setUsername] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setInputPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleUsername = (value: string) => {
     setUsername(value);
@@ -23,10 +26,54 @@ export default function HomeLayout(props: IhomeLayoutProps) {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+
+    const csrftoken = getCookie("csrftoken");
+
+    function getCookie(name: string) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts?.pop()?.split(";").shift();
+    }
+
+    const formData = {
+      username: username,
+      password: password,
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    };
+
+    console.log("formData", formData);
+
+    await axios
+      .post("http://localhost:8000/login/", formData, { headers })
+      .then((response) => {
+        console.log("response", response.data);
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.post("/api/logout/"); // Replace with your API endpoint
+  //     // Perform any additional cleanup or redirect as needed
+  //   } catch (error) {
+  //     console.error("Error logging out:", error);
+  //   }
+  // };
+
   return (
     <div>
       <Layout style={{ width: "100vw", height: "100vh" }}>
         <Layout>
+          <NavBar isLoggedIn={isLoggedIn} />
           <Layout style={{ padding: "0 24px 24px" }}>
             <Content
               style={{
@@ -39,15 +86,16 @@ export default function HomeLayout(props: IhomeLayoutProps) {
               }}
             >
               <CustomInput
-                value={inputUsername}
+                value={username}
                 onChange={handleUsername}
                 placeholder="Enter Username"
               />
               <CustomInput
-                value={inputPassword}
+                value={password}
                 onChange={handlePassword}
                 placeholder="Enter Password"
               />
+              <button onClick={handleLogin}>Login</button>
             </Content>
           </Layout>
         </Layout>

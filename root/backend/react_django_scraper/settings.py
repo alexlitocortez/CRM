@@ -13,7 +13,9 @@ SECRET_KEY = "django-insecure-4l#=#iyl4(cli8(wyew^mbsg-uy&moiy!v+5@hsqbd5cw56&ge
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost"
+]
 
 
 # Application definition
@@ -26,7 +28,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "players"
+    "players",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -37,7 +40,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+
 ]
+
+
 
 ROOT_URLCONF = "react_django_scraper.urls"
 
@@ -115,3 +123,16 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_ALLOW_ALL_ORIGINS = False
+CSRF_COOKIE_SECURE = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Add your frontend's URL here
+]
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173','https://*.127.0.0.1']
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+]
