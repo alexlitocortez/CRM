@@ -1,53 +1,36 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from .models import Players
-from .serializers import PlayerSerializer
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+# from rest_framework.response import Response
+from django.http import HttpResponse
 from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
 
-
-# Create your views here.
-
-@api_view(['GET'])
-def say_hello(request):
-    return HttpResponse('Hello World')
-
-@api_view(['GET', 'POST'])
-def player_list(request):
-    
-    if request.method == 'GET':
-        players = Players.objects.all()
-        serializer = PlayerSerializer(players, many=True)
-        return JsonResponse({ 'Players': serializer.data })
-
+@csrf_exempt 
+def home(request):
     if request.method == 'POST':
-        serializer = PlayerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        response_data = {'message': 'Data received successfully'}
+        response_data_not_successful = {'message': 'Data not retrieved successfully'}
+        # Authenticate
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "You Have Been Logged In!")
+            return HttpResponse(response_data, status=status.HTTP_200_OK)
+        else:
+            messages.success(request, "There was An Error Logging In, please try again...")
+            return HttpResponse(response_data_not_successful)
+    else:
+        return render(request, 'home.html')
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def player_detail(request, id):
-    
-    try:
-        player = Players.objects.get(pk=id)
-    except Players.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method == 'GET':
-        serializer = PlayerSerializer(player)
-        return Response(serializer.data)
-    elif request.method == 'PUT':
-        serializer = PlayerSerializer(player, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'DELETE':
-        player.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+@csrf_exempt 
+def logout_user(request):
+    logout(request)
+    messages.success(request, "You Have Been Logged Out...")
+    return HttpResponse({ 'message': 'Logged out successfully'})
 
 
-
+# def register_user(request):
+#     return render(request, 'register.tsx', {})
