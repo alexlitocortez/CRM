@@ -9,6 +9,8 @@ import { Menu } from "antd";
 import PropTypes from "prop-types";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 interface Props {
   isLoggedIn: boolean;
@@ -32,9 +34,17 @@ const NavBar: React.FC<Props> = ({ isLoggedIn }) => {
 
   const items: MenuProps["items"] = [
     {
-      // label: isLoggedIn ? "User is logged in" : null,
       key: "mail",
       icon: isLoggedIn ? <LogoutIcon onClick={handleLogout} /> : null,
+    },
+    {
+      key: "register",
+      icon:
+        isLoggedIn === false ? (
+          <Button variant="outlined" sx={{ padding: "1rem" }}>
+            <Link to="register">Register</Link>
+          </Button>
+        ) : null,
     },
   ];
 

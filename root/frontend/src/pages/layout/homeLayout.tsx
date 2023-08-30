@@ -4,6 +4,7 @@ import type { MenuProps } from "antd";
 import { CustomInput } from "../../components/autocomplete/CustomInput";
 import axios from "axios";
 import NavBar from "../../components/navbar/NavBar";
+import Alert from "@mui/material/Alert";
 
 const { Header, Content, Sider } = Layout;
 
@@ -47,8 +48,6 @@ export default function HomeLayout(props: IhomeLayoutProps) {
       "X-CSRFToken": csrftoken,
     };
 
-    console.log("formData", formData);
-
     await axios
       .post("http://localhost:8000/login/", formData, { headers })
       .then((response) => {
@@ -60,21 +59,16 @@ export default function HomeLayout(props: IhomeLayoutProps) {
       });
   };
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await axios.post("/api/logout/"); // Replace with your API endpoint
-  //     // Perform any additional cleanup or redirect as needed
-  //   } catch (error) {
-  //     console.error("Error logging out:", error);
-  //   }
-  // };
-
   return (
     <div>
       <Layout style={{ width: "100vw", height: "100vh" }}>
         <Layout>
           <NavBar isLoggedIn={isLoggedIn} />
           <Layout style={{ padding: "0 24px 24px" }}>
+            {isLoggedIn ? (
+              <Alert severity="info">User is logged in!</Alert>
+            ) : null}
+
             <Content
               style={{
                 padding: 24,

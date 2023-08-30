@@ -30,3 +30,7 @@ def logout_user(request):
     logout(request)
     messages.success(request, "You Have Been Logged Out...")
     return HttpResponse({ 'message': 'Logged out successfully'})
+
+
+# def register_user(request):
+#     return render(request, 'register.tsx', {})

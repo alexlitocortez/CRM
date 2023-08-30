@@ -1,18 +1,19 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import HomeLayout from "./pages/layout/homeLayout";
-import Header from "./components/navbar/NavBar";
+import Register from "./pages/register";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      {/* <Header /> */}
-      <HomeLayout />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomeLayout />} />
+        <Route path="register" element={<Register />} />
+      </Routes>
+    </Router>
   );
 }
 
