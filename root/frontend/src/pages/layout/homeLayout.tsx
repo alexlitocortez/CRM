@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import type { MenuProps } from "antd";
 import { CustomInput } from "../../components/autocomplete/CustomInput";
@@ -8,12 +8,28 @@ import Alert from "@mui/material/Alert";
 
 const { Header, Content, Sider } = Layout;
 
+interface MyData {
+  created_at: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+}
+
 export interface IhomeLayoutProps {}
 
 export default function HomeLayout(props: IhomeLayoutProps) {
   const [username, setUsername] = useState("");
   const [password, setInputPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [modelData, setModelData] = useState("");
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/model-data/").then((res) => {
+      console.log("res", res);
+      setModelData(res.data);
+    });
+  });
 
   const handleUsername = (value: string) => {
     setUsername(value);
@@ -59,6 +75,8 @@ export default function HomeLayout(props: IhomeLayoutProps) {
       });
   };
 
+  console.log("model data", modelData);
+
   return (
     <div>
       <Layout style={{ width: "100vw", height: "100vh" }}>
@@ -79,6 +97,7 @@ export default function HomeLayout(props: IhomeLayoutProps) {
                 flexDirection: "column",
               }}
             >
+              <div> {modelData}</div>
               <CustomInput
                 value={username}
                 onChange={handleUsername}

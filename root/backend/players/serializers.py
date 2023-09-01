@@ -1,9 +1,11 @@
 from rest_framework import serializers 
-from .models import Players
+from .models import Record
 
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Players
-        fields = ('id', 'name', 'description')
+        model = Record
+        fields = '__all__'
+
+
 
 

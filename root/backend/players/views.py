@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-# from rest_framework.response import Response
+from rest_framework.response import Response
 from django.http import HttpResponse
 # from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from .forms import SignUpForm
 from .models import Record
+from .serializers import PlayerSerializer
 
 def react_view(request):
     return render(request, 'home.html')
@@ -27,9 +28,10 @@ def home(request):
             return HttpResponse(response_data, status=status.HTTP_200_OK)
         else:
             messages.success(request, "There was An Error Logging In, please try again...")
+            return redirect('home')
             return HttpResponse(response_data_not_successful)
     else:
-        return render(request, 'home.html')
+        return render(request, 'home.html', {'records': records})
 
 @csrf_exempt 
 def logout_user(request):
@@ -57,3 +59,23 @@ def register_user(request):
         return HttpResponse("You're not registered")
     
     return render(request, 'homeLayout.tsx', {'form': form})
+
+@csrf_exempt 
+def get_model_data(request):
+    if request.method == 'GET':
+        model_data = Record.objects.all()
+        serializer = PlayerSerializer(model_data, many=True)
+        formatted_data = [
+            {
+                'created_at': player['created_at'],
+                'first_name': player['first_name'],
+                'last_name': player['last_name'],
+                'email': player['email'],
+                'phone': player['phone']
+            }
+            for player in serializer.data
+        ]
+        return HttpResponse(formatted_data)
+    else:
+        return
+    
