@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from rest_framework.response import Response
+# from rest_framework.response import Response
 from django.http import HttpResponse
 # from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from .forms import SignUpForm
 from .models import Record
 from .serializers import PlayerSerializer
+from django.http import JsonResponse
+
 
 def react_view(request):
-    return render(request, 'home.html')
+    return render(request, 'records.tsx')
 
 @csrf_exempt 
 def home(request):
@@ -29,7 +31,7 @@ def home(request):
         else:
             messages.success(request, "There was An Error Logging In, please try again...")
             return redirect('home')
-            return HttpResponse(response_data_not_successful)
+            # return HttpResponse(response_data_not_successful)
     else:
         return render(request, 'home.html', {'records': records})
 
@@ -75,7 +77,19 @@ def get_model_data(request):
             }
             for player in serializer.data
         ]
-        return HttpResponse(formatted_data)
+        # return HttpResponse(formatted_data)
+        return JsonResponse(formatted_data, safe=False)
     else:
         return
-    
+
+def customer_record(request, pk):
+     if request.user.is_authenticated:
+        #   Look up Records
+        customer_record = Record.objects.get(id=pk)
+        return render(request, 'home.html', {'customer_record': customer_record})
+     else:
+        messages.success(request, "You must be logged in to view that page...")
+        return redirect('home')
+
+
+

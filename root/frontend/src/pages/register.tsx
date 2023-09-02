@@ -4,8 +4,6 @@ import { CustomInput } from "../components/autocomplete/CustomInput";
 import axios from "axios";
 import { useState } from "react";
 import { Cookie } from "@mui/icons-material";
-// import type { MenuProps } from "antd";
-// import { Menu } from "antd";
 
 const { Header, Content, Sider } = Layout;
 
