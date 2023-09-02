@@ -5,6 +5,7 @@ import { CustomInput } from "../../components/autocomplete/CustomInput";
 import axios from "axios";
 import NavBar from "../../components/navbar/NavBar";
 import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Content, Sider } = Layout;
 
@@ -22,14 +23,14 @@ export default function HomeLayout(props: IhomeLayoutProps) {
   const [username, setUsername] = useState("");
   const [password, setInputPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [modelData, setModelData] = useState("");
+  const [modelData, setModelData] = useState<MyData[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:8000/model-data/").then((res) => {
-      console.log("res", res);
       setModelData(res.data);
     });
-  });
+  }, []);
 
   const handleUsername = (value: string) => {
     setUsername(value);
@@ -75,8 +76,6 @@ export default function HomeLayout(props: IhomeLayoutProps) {
       });
   };
 
-  console.log("model data", modelData);
-
   return (
     <div>
       <Layout style={{ width: "100vw", height: "100vh" }}>
@@ -86,7 +85,29 @@ export default function HomeLayout(props: IhomeLayoutProps) {
             {isLoggedIn ? (
               <Alert severity="info">User is logged in!</Alert>
             ) : null}
-
+            <p style={{ color: "black" }}>
+              First Element ID: {modelData[0]?.created_at}
+            </p>
+            <p style={{ color: "black" }}>
+              First Element ID: {modelData[0]?.first_name}
+            </p>
+            <p style={{ color: "black" }}>
+              First Element ID: {modelData[0]?.last_name}
+            </p>
+            <p style={{ color: "black" }}>
+              First Element ID: {modelData[0]?.phone}
+            </p>
+            First Element ID: {modelData[0]?.email}
+            <p style={{ color: "black" }}></p>
+            {/* <ul>
+              <li>
+                {modelData.map((item, index) => {
+                  <div>
+                    {item.created_at}
+                  </div>
+                })}
+              </li>
+            </ul> */}
             <Content
               style={{
                 padding: 24,
@@ -97,7 +118,6 @@ export default function HomeLayout(props: IhomeLayoutProps) {
                 flexDirection: "column",
               }}
             >
-              <div> {modelData}</div>
               <CustomInput
                 value={username}
                 onChange={handleUsername}
