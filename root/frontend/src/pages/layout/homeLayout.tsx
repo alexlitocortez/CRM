@@ -17,9 +17,7 @@ interface MyData {
   phone: string;
 }
 
-export interface IhomeLayoutProps {}
-
-export default function HomeLayout(props: IhomeLayoutProps) {
+export default function HomeLayout() {
   const [username, setUsername] = useState("");
   const [password, setInputPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -81,24 +79,23 @@ export default function HomeLayout(props: IhomeLayoutProps) {
       <Layout style={{ width: "100vw", height: "100vh" }}>
         <Layout>
           <NavBar isLoggedIn={isLoggedIn} />
-          <Layout style={{ padding: "0 24px 24px" }}>
+          <Layout style={{ padding: "0 24px 24px", backgroundColor: "black" }}>
             {isLoggedIn ? (
               <Alert severity="info">User is logged in!</Alert>
             ) : null}
-            <p style={{ color: "black" }}>
+            <p style={{ color: "white" }}>
               First Element ID: {modelData[0]?.created_at}
             </p>
-            <p style={{ color: "black" }}>
+            <p style={{ color: "white" }}>
               First Element ID: {modelData[0]?.first_name}
             </p>
-            <p style={{ color: "black" }}>
+            <p style={{ color: "white" }}>
               First Element ID: {modelData[0]?.last_name}
             </p>
-            <p style={{ color: "black" }}>
+            <p style={{ color: "white" }}>
               First Element ID: {modelData[0]?.phone}
             </p>
             First Element ID: {modelData[0]?.email}
-            <p style={{ color: "black" }}></p>
             {/* <ul>
               <li>
                 {modelData.map((item, index) => {
@@ -110,10 +107,10 @@ export default function HomeLayout(props: IhomeLayoutProps) {
             </ul> */}
             <Content
               style={{
-                padding: 24,
-                margin: 0,
+                padding: 30,
+                margin: "auto",
                 minHeight: 280,
-                background: colorBgContainer,
+                background: "black",
                 display: "flex",
                 flexDirection: "column",
               }}
@@ -128,7 +125,16 @@ export default function HomeLayout(props: IhomeLayoutProps) {
                 onChange={handlePassword}
                 placeholder="Enter Password"
               />
-              <button onClick={handleLogin}>Login</button>
+              <button
+                onClick={handleLogin}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  borderColor: "white",
+                }}
+              >
+                Login
+              </button>
             </Content>
           </Layout>
         </Layout>

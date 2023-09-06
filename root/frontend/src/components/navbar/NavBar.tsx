@@ -41,8 +41,27 @@ const NavBar: React.FC<Props> = ({ isLoggedIn }) => {
       key: "register",
       icon:
         isLoggedIn === false ? (
-          <Button variant="outlined" sx={{ padding: "1rem" }}>
-            <Link to="register">Register</Link>
+          <Button
+            variant="outlined"
+            sx={{ padding: "1rem", borderColor: "white" }}
+          >
+            <Link to="register" style={{ color: "white" }}>
+              Register
+            </Link>
+          </Button>
+        ) : null,
+    },
+    {
+      key: "records",
+      icon:
+        isLoggedIn === false ? (
+          <Button
+            variant="outlined"
+            sx={{ padding: "1rem", borderColor: "white" }}
+          >
+            <Link to="records" style={{ color: "white" }}>
+              Records
+            </Link>
           </Button>
         ) : null,
     },
@@ -54,6 +73,7 @@ const NavBar: React.FC<Props> = ({ isLoggedIn }) => {
       selectedKeys={[current]}
       mode="horizontal"
       items={items}
+      style={{ backgroundColor: "black", padding: "1rem" }}
     />
   );
 };
