@@ -21,7 +21,11 @@ export const CustomInput: React.FC<CustomInputProps> = ({
       value={value}
       onChange={handleChange}
       placeholder={placeholder}
-      style={{ width: "30vw", marginBottom: "1rem" }}
+      style={{
+        width: "30vw",
+        backgroundColor: "black",
+        marginBottom: "1rem",
+      }}
     />
   );
 };

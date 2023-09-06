@@ -7,8 +7,6 @@ import { Cookie } from "@mui/icons-material";
 
 const { Header, Content, Sider } = Layout;
 
-type StateIdentifier = "state1" | "state2" | "state3";
-
 export default function Register() {
   const [username, setUsername] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
@@ -71,12 +69,19 @@ export default function Register() {
   };
   return (
     <div>
-      <h1>Register</h1>
       <Layout
         style={{ width: "100vw", height: "100vh", backgroundColor: "black" }}
       >
+        <div style={{ borderBottom: "1px solid grey" }}>
+          <h1>Register</h1>
+        </div>
         <Layout>
-          <Layout style={{ padding: "0 24px 24px" }}>
+          <Layout
+            style={{
+              padding: "0 24px 24px",
+              backgroundColor: "black",
+            }}
+          >
             <Content
               style={{
                 padding: 24,
@@ -112,7 +117,16 @@ export default function Register() {
                 onChange={handlePassword}
                 placeholder="Password"
               />
-              <button onClick={handleRegister}>Register</button>
+              <button
+                onClick={handleRegister}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  borderColor: "white",
+                }}
+              >
+                Register
+              </button>
             </Content>
           </Layout>
         </Layout>
