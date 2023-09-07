@@ -9,30 +9,12 @@ config = {
     'database': 'your_database_name',
 }
 
-host = 'localhost'
-user = 'root'
-password = 'Thisishowwedoitfeelme25!'
-database = 'elderco'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'elderco',
-        'USER': 'root',
-        'PASSWORD': 'Thisishowwedoitfeelme25!',
-        'HOST': 'localhost',
-        'PORT': '8000',
-    }
-}
-
-
 # Establish a connection to the MySQL server
 connection = mysql.connector.connect(
-    # host = host,
-    # user = user,
-    # password = password,
-    # database= database
-    DATABASES
+    host = 'localhost',
+    user = 'root',
+    password = 'Thisishowwedoitfeelme25!',
+    database= 'elderco'
 )
 
 # Prepare a cursor object

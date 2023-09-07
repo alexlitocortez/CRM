@@ -6,10 +6,11 @@ import axios from "axios";
 import NavBar from "../../components/navbar/NavBar";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
+import { Form } from "antd";
 
 const { Header, Content, Sider } = Layout;
 
-interface MyData {
+export interface MyData {
   created_at: string;
   first_name: string;
   last_name: string;
@@ -29,6 +30,8 @@ export default function HomeLayout() {
       setModelData(res.data);
     });
   }, []);
+
+  console.log("modelData", modelData);
 
   const handleUsername = (value: string) => {
     setUsername(value);
@@ -83,58 +86,59 @@ export default function HomeLayout() {
             {isLoggedIn ? (
               <Alert severity="info">User is logged in!</Alert>
             ) : null}
-            <p style={{ color: "white" }}>
-              First Element ID: {modelData[0]?.created_at}
-            </p>
-            <p style={{ color: "white" }}>
-              First Element ID: {modelData[0]?.first_name}
-            </p>
-            <p style={{ color: "white" }}>
-              First Element ID: {modelData[0]?.last_name}
-            </p>
-            <p style={{ color: "white" }}>
-              First Element ID: {modelData[0]?.phone}
-            </p>
-            First Element ID: {modelData[0]?.email}
-            {/* <ul>
-              <li>
-                {modelData.map((item, index) => {
-                  <div>
-                    {item.created_at}
-                  </div>
-                })}
-              </li>
-            </ul> */}
             <Content
               style={{
                 padding: 30,
                 margin: "auto",
                 minHeight: 280,
                 background: "black",
-                display: "flex",
-                flexDirection: "column",
               }}
             >
-              <CustomInput
-                value={username}
-                onChange={handleUsername}
-                placeholder="Enter Username"
-              />
-              <CustomInput
-                value={password}
-                onChange={handlePassword}
-                placeholder="Enter Password"
-              />
-              <button
-                onClick={handleLogin}
-                style={{
-                  backgroundColor: "white",
-                  color: "black",
-                  borderColor: "white",
-                }}
-              >
-                Login
-              </button>
+              <Form style={{ display: "flex", flexDirection: "column" }}>
+                <Form.Item
+                  label="Username"
+                  name="username"
+                  style={{ color: "white" }}
+                  rules={[
+                    {
+                      required: true, // This makes the input required
+                      message: "Please input your username!",
+                    },
+                  ]}
+                >
+                  <CustomInput
+                    value={username}
+                    onChange={handleUsername}
+                    placeholder="Enter Username"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    {
+                      required: true, // This makes the input required
+                      message: "Please input your password!",
+                    },
+                  ]}
+                >
+                  <CustomInput
+                    value={password}
+                    onChange={handlePassword}
+                    placeholder="Enter Password"
+                  />
+                </Form.Item>
+                <button
+                  onClick={handleLogin}
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    borderColor: "white",
+                  }}
+                >
+                  Login
+                </button>
+              </Form>
             </Content>
           </Layout>
         </Layout>

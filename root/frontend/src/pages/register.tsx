@@ -87,7 +87,6 @@ export default function Register() {
                 padding: 24,
                 margin: "auto",
                 minHeight: 280,
-                // background: colorBgContainer,
                 display: "flex",
                 flexDirection: "column",
               }}

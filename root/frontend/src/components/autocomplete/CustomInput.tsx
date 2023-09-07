@@ -24,6 +24,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
       style={{
         width: "30vw",
         backgroundColor: "black",
+        color: "white",
         marginBottom: "1rem",
       }}
     />
