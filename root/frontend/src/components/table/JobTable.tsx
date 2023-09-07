@@ -1,46 +1,27 @@
-import { Space, Table, Tag } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import React from "react";
+import { MyData } from "../../pages/layout/homeLayout";
+import Card from "react-bootstrap/Card";
 
-interface DataType {
-  key: string;
-  company: string;
-  position: string;
-  salary: number;
+interface TableProps {
+  modelData: MyData[];
 }
 
-const columns: ColumnsType<DataType> = [
-  {
-    title: "Company",
-    dataIndex: "company",
-    key: "company",
-  },
-  {
-    title: "Position",
-    dataIndex: "position",
-    key: "position",
-  },
-  {
-    title: "Salary",
-    dataIndex: "salary",
-    key: "salary",
-  },
-];
+const DynamicTable: React.FC<TableProps> = ({ modelData }) => {
+  console.log("model keys", modelData[0]);
 
-const data: DataType[] = [
-  {
-    key: "1",
-    company: "Indeed",
-    position: "Full-Stack Engineer",
-    salary: 120000,
-  },
-  {
-    key: "2",
-    company: "Roblox",
-    position: "Frontend Engineer",
-    salary: 130000,
-  },
-];
+  return (
+    <Card style={{ width: "18rem", borderColor: "white" }}>
+      <Card.Body>
+        {/* <Card.Title>Card Title</Card.Title> */}
+        <Card.Title>Records</Card.Title>
+        <Card.Text>{modelData[0]?.created_at}</Card.Text>
+        <Card.Text>{modelData[0]?.first_name}</Card.Text>
+        <Card.Text>{modelData[0]?.last_name}</Card.Text>
+        <Card.Text>{modelData[0]?.email}</Card.Text>
+        <Card.Text>{modelData[0]?.phone}</Card.Text>
+      </Card.Body>
+    </Card>
+  );
+};
 
-const JobTable: React.FC = () => <Table columns={columns} dataSource={data} />;
-
-export default JobTable;
+export default DynamicTable;

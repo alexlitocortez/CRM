@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-# from rest_framework.response import Response
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from django.http import HttpResponse
 # from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
@@ -21,7 +22,7 @@ def home(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         response_data = {'message': 'Data received successfully'}
-        response_data_not_successful = {'message': 'Data not retrieved successfully'}
+        Response("You have been logged in successfully")
         # Authenticate
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -30,8 +31,7 @@ def home(request):
             return HttpResponse(response_data, status=status.HTTP_200_OK)
         else:
             messages.success(request, "There was An Error Logging In, please try again...")
-            return redirect('home')
-            # return HttpResponse(response_data_not_successful)
+            return HttpResponse("login not successful!")
     else:
         return render(request, 'home.html', {'records': records})
 
@@ -90,6 +90,16 @@ def customer_record(request, pk):
      else:
         messages.success(request, "You must be logged in to view that page...")
         return redirect('home')
+
+
+@api_view(['POST'])
+def delete_record(request, pk):
+    if request.user.is_authenticated:
+        delete_it = Record.objects.get(id=pk)
+        delete_it.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 

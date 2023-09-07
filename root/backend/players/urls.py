@@ -4,7 +4,7 @@ from .views import home, react_view
 
 
 urlpatterns = [
-    path('/', views.react_view, name='home'),
+    path('', views.react_view, name='home'),
     path('login/', views.home, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register_user, name='register'),

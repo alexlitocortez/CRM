@@ -54,7 +54,7 @@ const NavBar: React.FC<Props> = ({ isLoggedIn }) => {
     {
       key: "records",
       icon:
-        isLoggedIn === false ? (
+        isLoggedIn === true ? (
           <Button
             variant="outlined"
             sx={{ padding: "1rem", borderColor: "white" }}
