@@ -12,8 +12,8 @@ from .serializers import PlayerSerializer
 from django.http import JsonResponse
 
 
-# def react_view(request):
-#     return render(request, 'records.tsx')
+def homepage(request):
+    return render(request, 'home.html', {})
 
 @csrf_exempt 
 def home(request):
