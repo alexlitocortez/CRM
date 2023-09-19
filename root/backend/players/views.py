@@ -12,8 +12,8 @@ from .serializers import PlayerSerializer
 from django.http import JsonResponse
 
 
-def react_view(request):
-    return render(request, 'records.tsx')
+# def react_view(request):
+#     return render(request, 'records.tsx')
 
 @csrf_exempt 
 def home(request):
@@ -53,11 +53,9 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request,"You Have Successfully Registered")
-            # return HttpResponse(request, 'homeLayout.tsx')
             return HttpResponse("You're registered")
     else:
         form = SignUpForm()
-        # return render(request, 'register.tsx', {'form': form})
         return HttpResponse("You're not registered")
     
     return render(request, 'homeLayout.tsx', {'form': form})

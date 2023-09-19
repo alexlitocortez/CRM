@@ -73,12 +73,12 @@ WSGI_APPLICATION = "react_django_scraper.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'elderco',
         'USER': 'root',
         'PASSWORD': 'Thisishowwedoitfeelme25!',
         'HOST': 'localhost',
-        'PORT': '8000',
+        'PORT': '3306',
     }
 }
 
@@ -113,6 +113,9 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+# AUTH_USER_MODEL = 'players.CustomUser'
+
 
 
 # Static files (CSS, JavaScript, Images)
