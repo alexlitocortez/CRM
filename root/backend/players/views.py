@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Record
 from .serializers import PlayerSerializer
 from django.http import JsonResponse
-from .forms import SignUpForm
+from .forms import SignUpForm, AddRecordForm
 
 
 @csrf_exempt
@@ -63,7 +63,7 @@ def customer_record(request, pk):
         messages.success(request, "You Must Be Logged In To View That Page...")
         return redirect('home')
     
-def delete_customer(request, pk):
+def delete_record(request, pk):
     if request.user.is_authenticated:
         delete_it = Record.objects.get(id=pk)
         delete_it.delete()
@@ -72,3 +72,29 @@ def delete_customer(request, pk):
     else:
         messages.success(request, "You Must Be Logged In To Do This...")
         return redirect('home')
+    
+def add_record(request):
+    form = AddRecordForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                add_record = form.save()
+                messages.success(request, "Record Added...")
+                return redirect('home')
+        return render(request, 'add_record.html', {'form': form})
+    else:
+        messages.success(request, "You Must Be Logged In...")
+        return redirect('home')
+
+# def update_record(request, pk):
+#     if request.user.is_authenticated:
+#         current_record = Record.objects.get(id=pk)
+#         form = AddRecordForm(request.POST or None, instance=current_record)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Record Has Been Updated!")
+#             return redirect('home')
+#         return render(request, 'update_record.html', {'form': form})
+#     else:
+#         messages.success(request, "You Must Be Logged In...")
+#         return redirect('home')
