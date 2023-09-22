@@ -46,9 +46,10 @@
 
 <form method="POST" action="{% url 'home' %}">
   <h1>Login</h1>
-  {% csrf_token %}
   <br />
   <form>
+    {% csrf_token %}
+
     <div class="form-group">
       <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
         placeholder="Enter Username" name="username" required>
