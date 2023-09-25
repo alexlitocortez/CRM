@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<!-- filtered_players.html -->
+<div class="container-fluid d-flex justify-content-around">
+
+    <form method="get" action="{% url 'filtered_table' %}">
+        <select name="filter_option">
+            <option value="all">All</option>
+            <option value="Offense">Offense</option>
+            <option value="Defense">Defense</option>
+            <option value="Special Teams">Special Teams</option>
+            <!-- Add more dropdown options as needed -->
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+
+</div>
+
+<br />
+
+<table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark bg-danger">
+        <tr class="text-warning">
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Position</th>
+            <th scope="col">ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in filtered_data %}
+        <tr>
+            <td> {{ record.first_name }}</td>
+            <td> {{ record.last_name }}</td>
+            <td> {{ record.unit }}</td>
+            <td> {{ record.position }}</td>
+
+            <td><a href="{% url 'record' record.id %}">{{ record.id }}</a> </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from .forms import SignUpForm, AddRecordForm
 
 
+
 @csrf_exempt
 def home(request):
     records = Record.objects.all()
@@ -98,3 +99,23 @@ def update_record(request, pk):
     else:
         messages.success(request, "You Must Be Logged In...")
         return redirect('home')
+
+
+def filtered_table(request):
+    selected_option = request.GET.get('filter_option','all')
+
+    if selected_option == 'Offense':
+        filtered_data = Record.objects.filter(unit=selected_option)
+    elif selected_option == 'Defense':
+        filtered_data = Record.objects.filter(unit=selected_option)
+    elif selected_option == 'Special Teams':
+        filtered_data = Record.objects.filter(unit=selected_option)
+    else:
+        filtered_data = Record.objects.all()
+
+    return render(request, 'filtered_table.html', {'filtered_data': filtered_data})
+
+
+
+
+
