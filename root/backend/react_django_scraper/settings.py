@@ -46,7 +46,6 @@ MIDDLEWARE = [
 ]
 
 
-
 ROOT_URLCONF = "react_django_scraper.urls"
 
 TEMPLATES = [

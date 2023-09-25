@@ -5,20 +5,21 @@
 
 <div class="container-fluid d-flex justify-content-around">
 
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      Unit
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Offense</a>
-      <a class="dropdown-item" href="#">Defense</a>
-      <a class="dropdown-item" href="#">Special Teams</a>
-    </div>
-  </div>
+
+  <form method="get" action="{% url 'filtered_table' %}">
+    <select name="filter_option">
+      <option value="all">All</option>
+      <option value="Offense">Offense</option>
+      <option value="Defense">Defense</option>
+      <option value="Special Teams">Special Teams</option>
+      <!-- Add more dropdown options as needed -->
+    </select>
+    <input type="submit" value="Filter">
+  </form>
 
 
-  <div class="dropdown">
+
+  <!-- <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
       Position
@@ -39,7 +40,7 @@
       <a class="dropdown-item" href="#">Team</a>
       <a class="dropdown-item" href="#">Player</a>
     </div>
-  </div>
+  </div> -->
 
 </div>
 
@@ -59,9 +60,6 @@
     {% if records %}
     {% for record in records %}
     <tr>
-      <!-- <td>{{ record.first_name }}
-        {{ record.last_name }}
-      </td> -->
       <td> {{ record.first_name }}</td>
       <td> {{ record.last_name }}</td>
       <td> {{ record.unit }}</td>
