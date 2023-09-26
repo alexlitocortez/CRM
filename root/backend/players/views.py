@@ -103,18 +103,26 @@ def update_record(request, pk):
 
 def filtered_table(request):
     selected_option = request.GET.get('filter_option','all')
+    selected_option2 = request.GET.get('filter_option2','all')
 
-    if selected_option == 'Offense':
-        filtered_data = Record.objects.filter(unit=selected_option)
-    elif selected_option == 'Defense':
-        filtered_data = Record.objects.filter(unit=selected_option)
-    elif selected_option == 'Special Teams':
-        filtered_data = Record.objects.filter(unit=selected_option)
-    else:
-        filtered_data = Record.objects.all()
+    filtered_data = Record.objects.all()
 
-    return render(request, 'filtered_table.html', {'filtered_data': filtered_data})
+    if selected_option != 'all':
+        filtered_data = filtered_data.filter(unit=selected_option)
 
+    if selected_option2 != 'all':
+        filtered_data = filtered_data.filter(position=selected_option2)
+
+    # if selected_option == 'Offense':
+    #     filtered_data = Record.objects.filter(unit=selected_option)
+    # elif selected_option == 'Defense':
+    #     filtered_data = Record.objects.filter(unit=selected_option)
+    # elif selected_option == 'Special Teams':
+    #     filtered_data = Record.objects.filter(unit=selected_option)
+    # else:
+    #     filtered_data = Record.objects.all()
+
+    return render(request, 'filtered_table.html', {'filtered_data': filtered_data, 'selected_option': selected_option, 'selected_option2': selected_option2})
 
 
 
