@@ -7,40 +7,22 @@
 
 
   <form method="get" action="{% url 'filtered_table' %}">
+    <strong>Select Unit</strong>
     <select name="filter_option">
       <option value="all">All</option>
       <option value="Offense">Offense</option>
       <option value="Defense">Defense</option>
       <option value="Special Teams">Special Teams</option>
-      <!-- Add more dropdown options as needed -->
+    </select>
+    <strong>Select Position</strong>
+    <select name="filter_option2">
+      <option value="all">All</option>
+      <option value="QB">QB</option>
+      <option value="RB">RB</option>
+      <option value="TE">TE</option>
     </select>
     <input type="submit" value="Filter">
   </form>
-
-
-
-  <!-- <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      Position
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Offense</a>
-      <a class="dropdown-item" href="#">Defense</a>
-      <a class="dropdown-item" href="#">Special Teams</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      Stats
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Team</a>
-      <a class="dropdown-item" href="#">Player</a>
-    </div>
-  </div> -->
 
 </div>
 
@@ -72,8 +54,6 @@
     </tr>
   </tbody>
 </table>
-
-
 
 {% else %}
 

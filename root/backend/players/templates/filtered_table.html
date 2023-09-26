@@ -3,16 +3,29 @@
 
 {% if user.is_authenticated %}
 
-<!-- filtered_players.html -->
 <div class="container-fluid d-flex justify-content-around">
 
     <form method="get" action="{% url 'filtered_table' %}">
+        <strong>Select Unit:</strong>
         <select name="filter_option">
             <option value="all">All</option>
             <option value="Offense">Offense</option>
             <option value="Defense">Defense</option>
             <option value="Special Teams">Special Teams</option>
-            <!-- Add more dropdown options as needed -->
+        </select>
+        <strong>Select Position:</strong>
+        <select name="filter_option2">
+            <option value="all">All</option>
+            <option value="QB">QB</option>
+            <option value="RB">RB</option>
+            <option value="TE">TE</option>
+            <option value="WR">WR</option>
+            <option value="DL">DL</option>
+            <option value="LB">LB</option>
+            <option value="DE">DE</option>
+            <option value="CB">CB</option>
+            <option value="SS">SS</option>
+            <option value="K">K</option>
         </select>
         <input type="submit" value="Filter">
     </form>

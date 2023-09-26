@@ -55,11 +55,11 @@ def register_user(request):
         return render(request, 'register.html', {'form': form})
     return render(request, 'register.html', {'form': form})
 
-def customer_record(request, pk):
+def player_record(request, pk):
     if request.user.is_authenticated:
         # Look Up Individual Record
-        customer_record = Record.objects.get(id=pk)
-        return render(request, 'record.html', {'customer_record': customer_record})
+        player_record = Record.objects.get(id=pk)
+        return render(request, 'record.html', {'player_record': player_record})
     else:
         messages.success(request, "You Must Be Logged In To View That Page...")
         return redirect('home')
@@ -103,18 +103,26 @@ def update_record(request, pk):
 
 def filtered_table(request):
     selected_option = request.GET.get('filter_option','all')
+    selected_option2 = request.GET.get('filter_option2','all')
 
-    if selected_option == 'Offense':
-        filtered_data = Record.objects.filter(unit=selected_option)
-    elif selected_option == 'Defense':
-        filtered_data = Record.objects.filter(unit=selected_option)
-    elif selected_option == 'Special Teams':
-        filtered_data = Record.objects.filter(unit=selected_option)
-    else:
-        filtered_data = Record.objects.all()
+    filtered_data = Record.objects.all()
 
-    return render(request, 'filtered_table.html', {'filtered_data': filtered_data})
+    if selected_option != 'all':
+        filtered_data = filtered_data.filter(unit=selected_option)
 
+    if selected_option2 != 'all':
+        filtered_data = filtered_data.filter(position=selected_option2)
+
+    # if selected_option == 'Offense':
+    #     filtered_data = Record.objects.filter(unit=selected_option)
+    # elif selected_option == 'Defense':
+    #     filtered_data = Record.objects.filter(unit=selected_option)
+    # elif selected_option == 'Special Teams':
+    #     filtered_data = Record.objects.filter(unit=selected_option)
+    # else:
+    #     filtered_data = Record.objects.all()
+
+    return render(request, 'filtered_table.html', {'filtered_data': filtered_data, 'selected_option': selected_option, 'selected_option2': selected_option2})
 
 
 

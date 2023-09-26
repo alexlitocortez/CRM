@@ -3,25 +3,26 @@
 
 <div class="card" style="width: 18rem;">
     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-    <h5 class="card-header">{{ customer_record.first_name }} {{ customer_record.last_name }}</h5>
+    <h5 class="card-header">{{ player_record.first_name }} {{ player_record.last_name }}</h5>
 
     <div class="card-body">
-        <p class="card-text">
-            {{ customer_record.first_name }}<br />
-            {{ customer_record.last_name }}<br />
-            {{ customer_record.email }}<br />
-            {{ customer_record.phone }}<br />
-            {{ customer_record.address }}<br />
-            {{ customer_record.city }}<br />
-            {{ customer_record.state }}<br />
-            {{ customer_record.zipcode }}<br />
-            {{ customer_record.created_at }}<br />
-            {{ customer_record.id }}
-        </p>
+        <div class="d-flex justify-content-center">
+            <p class="card-text">
+                <strong>Unit:</strong>
+                {{ player_record.unit }}
+            </p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <p class="card-text">
+                <strong>Position:</strong>
+                {{ player_record.position }}
+            </p>
+        </div>
+
 
         <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
-        <a href="{% url 'delete_record' customer_record.id %}" class="btn btn-danger">Delete</a>
-        <a href="{% url 'update_record' customer_record.id %}" class="btn btn-secondary">Update</a>
+        <a href="{% url 'delete_record' player_record.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'update_record' player_record.id %}" class="btn btn-secondary">Update</a>
     </div>
 </div>
 
