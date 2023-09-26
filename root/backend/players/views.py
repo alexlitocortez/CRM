@@ -55,11 +55,11 @@ def register_user(request):
         return render(request, 'register.html', {'form': form})
     return render(request, 'register.html', {'form': form})
 
-def customer_record(request, pk):
+def player_record(request, pk):
     if request.user.is_authenticated:
         # Look Up Individual Record
-        customer_record = Record.objects.get(id=pk)
-        return render(request, 'record.html', {'customer_record': customer_record})
+        player_record = Record.objects.get(id=pk)
+        return render(request, 'record.html', {'player_record': player_record})
     else:
         messages.success(request, "You Must Be Logged In To View That Page...")
         return redirect('home')
