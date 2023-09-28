@@ -1,32 +1,63 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="card" style="width: 18rem;">
-    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-    <h5 class="card-header">{{ player_record.first_name }} {{ player_record.last_name }}</h5>
+<div class="mw-100">
+    <div class="card mr-3 mb-3">
+        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+        <h5 class="card-header">{{ player_record.first_name }} {{ player_record.last_name }}</h5>
 
-    <div class="card-body">
-        <div class="d-flex justify-content-center">
-            <p class="card-text">
-                <strong>Unit:</strong>
-                {{ player_record.unit }}
-            </p>
+        <div class="card-body">
+            <div class="d-flex justify-content-center">
+                <p class="card-text">
+                    <strong>Unit:</strong>
+                    {{ player_record.unit }}
+                </p>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+                <p class="card-text">
+                    <strong>Position:</strong>
+                    {{ player_record.position }}
+                </p>
+            </div>
+            <div class="d-flex justify-content-around">
+                <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+                <a href="{% url 'delete_record' player_record.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'update_record' player_record.id %}" class="btn btn-secondary">Update</a>
+            </div>
+
         </div>
-        <div class="d-flex justify-content-center">
-            <p class="card-text">
-                <strong>Position:</strong>
-                {{ player_record.position }}
-            </p>
-        </div>
-
-
-        <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
-        <a href="{% url 'delete_record' player_record.id %}" class="btn btn-danger">Delete</a>
-        <a href="{% url 'update_record' player_record.id %}" class="btn btn-secondary">Update</a>
     </div>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Salary</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
 
-<br />
 
-
-{% endblock %}
+    {% endblock %}
