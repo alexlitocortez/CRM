@@ -6,10 +6,12 @@ from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 # from .forms import SignUpForm
-from .models import Record
+from .models import Record, Contract
 from .serializers import PlayerSerializer
 from django.http import JsonResponse
 from .forms import SignUpForm, AddRecordForm
+import pandas as pd
+import csv
 
 
 
@@ -113,17 +115,16 @@ def filtered_table(request):
     if selected_option2 != 'all':
         filtered_data = filtered_data.filter(position=selected_option2)
 
-    # if selected_option == 'Offense':
-    #     filtered_data = Record.objects.filter(unit=selected_option)
-    # elif selected_option == 'Defense':
-    #     filtered_data = Record.objects.filter(unit=selected_option)
-    # elif selected_option == 'Special Teams':
-    #     filtered_data = Record.objects.filter(unit=selected_option)
-    # else:
-    #     filtered_data = Record.objects.all()
-
     return render(request, 'filtered_table.html', {'filtered_data': filtered_data, 'selected_option': selected_option, 'selected_option2': selected_option2})
 
+
+def read_csv(request):
+    reading_csv = pd.read_csv('/Users/alexcortez/Desktop/projects/CRM/root/backend/csv/49ersSalary.csv')
+    print("reading csv", reading_csv)
+    print("reading csv", reading_csv.columns)
+
+
+    return render(request, 'contract.html', {'reading_csv': reading_csv})
 
 
 
