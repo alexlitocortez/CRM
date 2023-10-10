@@ -12,6 +12,7 @@ urlpatterns = [
     path('add_record/', views.add_record, name='add_record'),
     path('update_record/<int:pk>', views.update_record, name='update_record'),
     path('filtered_table/', views.filtered_table, name='filtered_table'),
+    path('contract/', views.read_csv, name='read_csv'),
 ]
 
 

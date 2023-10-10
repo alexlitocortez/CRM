@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "players",
     'corsheaders',
+    'import_export'
 ]
 
 MIDDLEWARE = [
