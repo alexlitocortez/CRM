@@ -118,13 +118,56 @@ def filtered_table(request):
     return render(request, 'filtered_table.html', {'filtered_data': filtered_data, 'selected_option': selected_option, 'selected_option2': selected_option2})
 
 
-def read_csv(request):
-    reading_csv = pd.read_csv('/Users/alexcortez/Desktop/projects/CRM/root/backend/csv/49ersSalary.csv')
-    print("reading csv", reading_csv)
-    print("reading csv", reading_csv.columns)
+# def read_csv(request):
+#     reading_csv = pd.read_csv('/Users/alexcortez/Desktop/projects/CRM/root/backend/csv/49ersSalary.csv')
+#     print("reading csv", reading_csv)
+#     print("reading csv", reading_csv.columns)
 
 
-    return render(request, 'contract.html', {'reading_csv': reading_csv})
+    # return render(request, 'contract.html', {'reading_csv': reading_csv})
+    # return JsonResponse(request, 'contract.html', {'reading_csv': reading_csv}, safe=False)
+
+def upload(request):
+    return render(request, 'upload.html')
+
+# def upload_csv(request):
+#     if request.method == 'POST' and request.FILES('csv_file'):
+#         csv_file = request.FILES['csv_file']
+#         data = process_csv(csv_file)
+#         save_csv_to_database(data)
+#         return render(request, 'contract.html', {'data': data})
+#     return render(request, 'upload.html')
 
 
 
+# def save_csv_to_database(data):
+#     for row in data:
+#         obj = Contract(field1=row['field1'], field2=row['field2'])
+#         obj.save()
+
+
+
+
+def process_uploaded_csv(request):
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        csv_file = request.FILES['csv_file']
+
+        # Process the CSV file (e.g., read and process data)
+        data = process_csv(csv_file)
+
+        # Save the data to the MySQL database
+        for row in data:
+            obj = Contract(field1=row['field1'], field2=row['field2'])
+            obj.save()
+
+        # You can redirect the user to a success page or return a response as needed
+        return HttpResponse("Data uploaded successfully")
+    else:
+        return HttpResponse("Invalid request or file missing")
+
+def process_csv(csv_file):
+    data = []
+    reader = csv.DictReader(csv_file)
+    for row in reader:
+        data.append(row)
+    return data
