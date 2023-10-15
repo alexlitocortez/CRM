@@ -9,11 +9,11 @@ class Record(models.Model):
     def __str__(self):
         return(f"{self.first_name} {self.last_name}")
 
-class Contract(models.Model):
+
+class Salary(models.Model):
     name = models.CharField(max_length=100)
     contract_terms = models.CharField(max_length=100)
     signing_bonus = models.CharField(max_length=100)
-    avg_salary = models.CharField(max_length=100)
+    average_salary = models.CharField(max_length=100)
     total_gtd = models.CharField(max_length=100)
-
 
