@@ -12,10 +12,7 @@ urlpatterns = [
     path('add_record/', views.add_record, name='add_record'),
     path('update_record/<int:pk>', views.update_record, name='update_record'),
     path('filtered_table/', views.filtered_table, name='filtered_table'),
-    path('upload/', views.upload, name='upload'),
-    # path('upload_csv/', views.upload_csv, name='upload_csv'),
-    path('upload-csv/', views.process_uploaded_csv, name='upload_csv'),
-    path('process-csv/', views.process_csv, name='process_csv'),
+    path('salaries/', views.salaries, name='salaries'),
 ]
 
 
