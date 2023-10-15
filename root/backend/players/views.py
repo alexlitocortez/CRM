@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Record, Salary
 from .serializers import PlayerSerializer
 from django.http import JsonResponse
-from .forms import SignUpForm, AddRecordForm
+from .forms import SignUpForm, AddRecordForm, AddSalaryForm
 import pandas as pd
 import csv
 
@@ -117,16 +117,23 @@ def filtered_table(request):
 
     return render(request, 'filtered_table.html', {'filtered_data': filtered_data, 'selected_option': selected_option, 'selected_option2': selected_option2})
 
-# def contract_record(request, pk):
-#     if request.user.is_authenticated:
-#         contract_record = Salary.objects.get(id=pk)
-#         return render(request, 'salaries.html', {'contract_record': contract_record})
-#     else:
-#         messages.success(request, "You Must Be Logged In To View That Page...")
-#         return redirect('home')
-
 
 def salaries(request):
     salaries = Salary.objects.all()
     return render(request, 'salaries.html', {'salaries': salaries})
+
+
+def add_salaries(request):
+    form = AddSalaryForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            if form.is_valid():
+                add_contract = form.save()
+                messages.success(request, "Contract Added...")
+                return redirect('home')
+        return render(request, 'add_salaries.html', {'form': form})
+    else:
+        messages.success(request, "You Must Be Logged In...")
+        return redirect('home')
+
 
