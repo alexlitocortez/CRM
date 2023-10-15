@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Record
+from .models import Record, Salary
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Email Address'}))
@@ -39,3 +39,15 @@ class AddRecordForm(forms.ModelForm):
     class Meta:
         model = Record
         exclude = ("user",)
+
+class AddSalaryForm(forms.ModelForm):
+    name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Name", "class":"form-control"}), label="")
+    contract_terms = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Contract Terms", "class":"form-control"}), label="")
+    signing_bonus = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Signing Bonus", "class":"form-control"}), label="")
+    average_salary = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Average Salary", "class":"form-control"}), label="")
+    total_gtd = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Total Guaranteed", "class":"form-control"}), label="")
+
+    class Meta:
+        model = Salary
+        exclude = ("user",)
+
