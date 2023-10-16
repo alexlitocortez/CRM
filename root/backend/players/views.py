@@ -130,10 +130,42 @@ def add_salaries(request):
             if form.is_valid():
                 add_contract = form.save()
                 messages.success(request, "Contract Added...")
-                return redirect('home')
-        return render(request, 'add_salaries.html', {'form': form})
+                return redirect('salaries')
+        else:
+            return render(request, 'add_salaries.html', {'form': form})
     else:
         messages.success(request, "You Must Be Logged In...")
         return redirect('home')
 
+def update_salary(request, pk):
+    if request.user.is_authenticated:
+        current_salary = Salary.objects.get(id=pk)
+        form = AddSalaryForm(request.POST or None, instance=current_salary)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Contract Has Been Updated!")
+            return redirect('salaries')
+        return render(request, 'update_salary.html', {'form':form})
+    else:
+        messages.success(request, "You Must Be Logged In...")
+        return redirect('home')
+    
 
+def player_salary(request, pk):
+    if request.user.is_authenticated:
+        # Look up player salary
+        player_salary = Salary.objects.get(id=pk)
+        return render(request, 'salary.html', {'player_salary': player_salary})
+    else:
+        messages.success(request, "You Must Be Logged In To View That Page...")
+        return redirect('home')
+
+def delete_salary(request, pk):
+    if request.user.is_authenticated:
+        delete_it = Salary.objects.get(id=pk)
+        delete_it.delete()
+        messages.success(request, "Contract Deleted Successfully")
+        return redirect('salaries')
+    else:
+        messages.success(request, "You Must Be Logged In To Do This...")
+        return redirect('home')
