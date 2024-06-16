@@ -16,7 +16,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',  # Allow access from 127.0.0.1
     'localhost',  # Allow access from localhost
-    # Add other allowed hosts here if needed
+    '.vercel.app'
 ]
 
 
