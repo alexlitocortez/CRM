@@ -50,11 +50,16 @@ def register_user(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('home.html')
+            if user is not None:
+                login(request, user)
+                return redirect('/')  # Use the URL pattern name, not the template name
+            else:
+                # Handle authentication failure (e.g., return an error message)
+                return render(request, 'register.html', {'form': form, 'error': 'Authentication failed'})
+
     else:
         form = SignUpForm()
-        return render(request, 'register.html', {'form': form})
+        # return render(request, 'register.html', {'form': form})
     return render(request, 'register.html', {'form': form})
 
 def player_record(request, pk):
