@@ -13,7 +13,10 @@ urlpatterns = [
     path('update_record/<int:pk>', views.update_record, name='update_record'),
     path('filtered_table/', views.filtered_table, name='filtered_table'),
     path('salaries/', views.salaries, name='salaries'),
+    path('salary/<int:pk>', views.player_salary, name='salary'),
     path('add_salaries/', views.add_salaries, name='add_salaries'),
+    path('update_salary/<int:pk>', views.update_salary, name='update_salary'),
+    path('delete_salary/<int:pk>', views.delete_salary, name='delete_salary'),
 ]
 
 

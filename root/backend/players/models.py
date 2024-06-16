@@ -16,4 +16,3 @@ class Salary(models.Model):
     signing_bonus = models.CharField(max_length=100)
     average_salary = models.CharField(max_length=100)
     total_gtd = models.CharField(max_length=100)
-

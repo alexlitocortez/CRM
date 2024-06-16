@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="mw-100">
+    <div class="card mr-3 mb-3">
+        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+        <h5 class="card-header">{{ player_salary.name }}</h5>
+
+        <div class="card-body">
+            <div class="d-flex justify-content-center mb-5">
+                <p class="card-text">
+                    <strong>Contract Terms</strong>
+                    {{ player_salary.contract_terms }}
+                </p>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+                <p class="card-text">
+                    <strong>Signing Bonus</strong>
+                    {{ player_salary.signing_bonus }}
+                </p>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+                <p class="card-text">
+                    <strong>Average Salary</strong>
+                    {{ player_salary.average_salary }}
+                </p>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+                <p class="card-text">
+                    <strong>Total Guaranteed</strong>
+                    {{ player_salary.total_gtd }}
+                </p>
+            </div>
+            <div class="d-flex justify-content-around">
+                <a href="{% url 'salaries' %}" class="btn btn-secondary">Back</a>
+                <a href="{% url 'delete_salary' player_salary.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'update_salary' player_salary.id %}" class="btn btn-secondary">Update</a>
+            </div>
+
+        </div>
+    </div>
+    <br />
+
+
+    {% endblock %}

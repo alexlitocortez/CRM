@@ -1,11 +1,9 @@
-import { Box } from "@mui/material";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Layout } from "antd";
 import { CustomInput } from "../components/autocomplete/CustomInput";
 import axios from "axios";
 import { useState } from "react";
-import { Cookie } from "@mui/icons-material";
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 export default function Register() {
   const [username, setUsername] = useState<string>("");
@@ -61,7 +59,8 @@ export default function Register() {
     await axios
       .post("http://localhost:8000/register/", formData, { headers })
       .then((response) => {
-        console.log("response register", response.data);
+        console.log("response register", response);
+        console.log("form data", formData)
       })
       .catch((error) => {
         console.log("error", error);
@@ -107,7 +106,7 @@ export default function Register() {
                 placeholder="Last Name"
               />
               <CustomInput
-                value={password}
+                value={emailAddress}
                 onChange={handleEmailAddress}
                 placeholder="Email Address"
               />

@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
-import type { MenuProps } from "antd";
+import { useState, useEffect } from "react";
+import { Layout } from "antd";
 import { CustomInput } from "../../components/autocomplete/CustomInput";
 import axios from "axios";
 import NavBar from "../../components/navbar/NavBar";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from "react-router-dom";
 import { Form } from "antd";
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 export interface MyData {
   created_at: string;
@@ -23,7 +21,6 @@ export default function HomeLayout() {
   const [password, setInputPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [modelData, setModelData] = useState<MyData[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:8000/model-data/").then((res) => {
@@ -41,9 +38,9 @@ export default function HomeLayout() {
     setInputPassword(value);
   };
 
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  // const {
+  //   token: { colorBgContainer },
+  // } = theme.useToken();
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -78,71 +75,69 @@ export default function HomeLayout() {
   };
 
   return (
-    <div>
-      <Layout style={{ width: "100vw", height: "100vh" }}>
-        <Layout>
-          <NavBar isLoggedIn={isLoggedIn} />
-          <Layout style={{ padding: "0 24px 24px", backgroundColor: "black" }}>
-            {isLoggedIn ? (
-              <Alert severity="info">User is logged in!</Alert>
-            ) : null}
-            <Content
-              style={{
-                padding: 30,
-                margin: "auto",
-                minHeight: 280,
-                background: "black",
-              }}
-            >
-              <Form style={{ display: "flex", flexDirection: "column" }}>
-                <Form.Item
-                  label="Username"
-                  name="username"
-                  style={{ color: "white" }}
-                  rules={[
-                    {
-                      required: true, // This makes the input required
-                      message: "Please input your username!",
-                    },
-                  ]}
-                >
-                  <CustomInput
-                    value={username}
-                    onChange={handleUsername}
-                    placeholder="Enter Username"
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    {
-                      required: true, // This makes the input required
-                      message: "Please input your password!",
-                    },
-                  ]}
-                >
-                  <CustomInput
-                    value={password}
-                    onChange={handlePassword}
-                    placeholder="Enter Password"
-                  />
-                </Form.Item>
-                <button
-                  onClick={handleLogin}
-                  style={{
-                    backgroundColor: "white",
-                    color: "black",
-                    borderColor: "white",
-                  }}
-                >
-                  Login
-                </button>
-              </Form>
-            </Content>
-          </Layout>
+    <Layout style={{ width: "100vw", height: "100vh" }}>
+      <Layout>
+        <NavBar isLoggedIn={isLoggedIn} />
+        <Layout style={{ padding: "0 24px 24px", backgroundColor: "black" }}>
+          {isLoggedIn ? (
+            <Alert severity="info">User is logged in!</Alert>
+          ) : null}
+          <Content
+            style={{
+              padding: 30,
+              margin: "auto",
+              minHeight: 280,
+              background: "black",
+            }}
+          >
+            <Form style={{ display: "flex", flexDirection: "column" }}>
+              <Form.Item
+                label="Username"
+                name="username"
+                style={{ color: "white" }}
+                rules={[
+                  {
+                    required: true, // This makes the input required
+                    message: "Please input your username!",
+                  },
+                ]}
+              >
+                <CustomInput
+                  value={username}
+                  onChange={handleUsername}
+                  placeholder="Enter Username"
+                />
+              </Form.Item>
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true, // This makes the input required
+                    message: "Please input your password!",
+                  },
+                ]}
+              >
+                <CustomInput
+                  value={password}
+                  onChange={handlePassword}
+                  placeholder="Enter Password"
+                />
+              </Form.Item>
+              <button
+                onClick={handleLogin}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  borderColor: "white",
+                }}
+              >
+                Login
+              </button>
+            </Form>
+          </Content>
         </Layout>
       </Layout>
-    </div>
+    </Layout>
   );
 }

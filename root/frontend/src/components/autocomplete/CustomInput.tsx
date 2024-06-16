@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "antd";
 
 interface CustomInputProps {
@@ -23,8 +23,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
       placeholder={placeholder}
       style={{
         width: "30vw",
-        backgroundColor: "black",
-        color: "white",
+        color: "black",
         marginBottom: "1rem",
       }}
     />
