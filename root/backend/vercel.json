@@ -10,7 +10,10 @@
         },
         {
             "src": "static/**/*",
-            "use": "@vercel/static"
+            "use": "@vercel/static",
+            "config": {
+                "distDir": "staticfiles"
+            }
         }
     ],
     "routes": [
@@ -20,7 +23,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "/manage.py"
+            "dest": "react_django_scraper/wsgi.py"
         }
     ]
 }
