@@ -74,14 +74,14 @@ WSGI_APPLICATION = "react_django_scraper.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'elderco',
-        'USER': 'root',
-        'PASSWORD': 'Thisishowwedoitfeelme25!',
-        'HOST': 'localhost',
-        'PORT': '3306'
-    }
+    # 'default': {
+    #     'ENGINE': 'mysql.connector.django',
+    #     'NAME': 'elderco',
+    #     'USER': 'root',
+    #     'PASSWORD': 'Thisishowwedoitfeelme25!',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306'
+    # }
 }
 
 
