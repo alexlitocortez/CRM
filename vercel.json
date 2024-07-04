@@ -2,12 +2,12 @@
     "version": 2,
     "builds": [
         {
-            "src": "manage.py",
+            "src": "backend/manage.py",
             "use": "@vercel/python"
         },
         {
-            "src": "templates/**/*",
-            "use": "@vercel/static"
+            "src": "backend/my_django_app/wsgi.py",
+            "use": "@vercel/python"
         }
     ],
     "routes": [
@@ -17,7 +17,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "manage.py"
+            "dest": "backend/my_django_app/wsgi.py"
         }
     ]
 }
